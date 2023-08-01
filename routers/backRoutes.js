@@ -1,7 +1,18 @@
 const express = require("express")
 const { buscarPeliculas } = require("../controllers/controllerPeliculas")
 const router = express.Router()
-router.get('/movies', buscarPeliculas)
+
+//RECOGER TODAS LAS PELICULAS
+// router.get('/movies', buscarPeliculas)
+
+//RECOGER UNA PELICULA POR SU NOMBRE
+router.get('/movies/:titulo', buscarPeliculas)
+
+//CREAR UNA PELICULA
+
+//ACTUALIZAR UNA PELICULA
+
+//ELIMINAR UNA PELICULA
 
 
 
