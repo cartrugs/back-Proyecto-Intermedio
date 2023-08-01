@@ -1,5 +1,5 @@
 const express = require("express")
-const { buscarPeliculas, createPelicula } = require("../controllers/controllerPeliculas")
+const { buscarPeliculas, createPelicula, borrarPelicula} = require("../controllers/controllerPeliculas")
 const router = express.Router()
 
 //RECOGER TODAS LAS PELICULAS
@@ -15,7 +15,7 @@ router.post("/movies", createPelicula)
 
 //ELIMINAR UNA PELICULA
 
-
+router.delete("/movies/:titulo", borrarPelicula)
 
 
 
