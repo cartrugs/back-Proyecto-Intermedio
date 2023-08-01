@@ -14,10 +14,9 @@ const validarEx = (req,res,next) => {
 };
 
 
-const passwordValidator =
+
 
 module.exports={
-    validarJWT,
-    passwordValidator
+    validarEx
     
 }

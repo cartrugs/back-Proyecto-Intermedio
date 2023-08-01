@@ -6,16 +6,7 @@ const bcrypt = require('bcryptjs')
 //POST CREAR USER
 const createUser = async (req,res) => {
 
-    const {user, password , nombre} = req.body
 
-    try {
-        
-    } catch (error) {
-        let user = await User.findOne({user:user});
-        console.log(user)
-        
-    }
-   
 
 }
 
