@@ -6,8 +6,14 @@ const peliculaSchema = new Schema({
         require: true,
     },
     imagen: {
-        type: String,
-        require: true,
+        src: {
+            type: String,
+            require: true,
+        },
+        alt: {
+            type: String,
+            require: true,
+        }
     },
     anio: {
         type: Number,

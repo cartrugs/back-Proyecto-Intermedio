@@ -1,6 +1,10 @@
 const Pelicula = require('../models/PeliculaModels')
 
-const buscarPeliculas = async (req, res) => {
+//RECOGER TODAS LAS PELIS
+
+
+//BUSCAR UNA PELI POR SU NOMBRE
+const buscarPelicula = async (req, res) => {
     const titulo = await req.params.titulo;
     console.log(titulo)
 
@@ -36,7 +40,6 @@ const buscarPeliculas = async (req, res) => {
 }
 
 //AÑADIR PELI//
-
 const createPelicula = async (req, res) => {
     const peli = new Pelicula(req.body)
 
@@ -56,13 +59,48 @@ const createPelicula = async (req, res) => {
 
 }
 
-//BORRAR PELI//
-const borrarPelicula = async (req, res) => {
-    const titulo = await req.params.titulo;
-    console.log(titulo)
+//ACTUALIZAR PELI//
+const actualizarPelicula = async (req, res) => {
+    const id = await req.params.id
+    const datos = req.body
+
 
     try {
-        const existe = await Pelicula.deleteOne({ titulo });
+        const existe = await Pelicula.findByIdAndUpdate({ _id: id })
+        const peliModificada = await Pelicula.findByIdAndUpdate(req.params.id, req.body, { new: true })
+        console.log(existe)
+
+        if (existe) {
+            return res.status(200).json({
+                ok: true,
+                pelicula: peliModificada,
+                msg: "Pelicula actualizada"
+            })
+        }
+        return res.status(400).json({
+            msg: "no hay pelis con ese título"
+        })
+
+    } catch (error) {
+        
+        console.log(error)
+        return res.status(500).json({
+            ok: false,
+            msg: "contacta con el admin"
+
+        })
+
+    }
+}
+
+
+//BORRAR PELI//
+const borrarPelicula = async (req, res) => {
+    const id = await req.params.id;
+    console.log(id)
+
+    try {
+        const existe = await Pelicula.findByIdAndDelete(id);
         console.log(existe)
         if (existe) {
             return res.status(200).json({
@@ -89,7 +127,8 @@ const borrarPelicula = async (req, res) => {
 }
 
 module.exports = {
-    buscarPeliculas,
+    buscarPelicula,
     createPelicula,
+    actualizarPelicula,
     borrarPelicula
 }
