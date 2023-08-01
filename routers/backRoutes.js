@@ -1,6 +1,8 @@
 const express = require("express")
+const { check } = require('express-validator')
 const {obtenerPelicula, buscarPelicula, crearPelicula, actualizarPelicula, borrarPelicula} = require("../controllers/controllerPeliculas")
 const router = express.Router()
+const { validarEx } = require('../middleware/vallidation');
 
 //RECOGER TODAS LAS PELICULAS
 router.get('/movies', obtenerPelicula)
@@ -9,10 +11,26 @@ router.get('/movies', obtenerPelicula)
 router.get('/movies/:titulo', buscarPelicula)
 
 //CREAR UNA PELICULA
-router.post("/movies", crearPelicula)
+router.post("/movies", 
+[
+    check("titulo", "El título es obligatorio").not().isEmpty(),
+    check("genero", "El género es obligatoria").not().isEmpty(),
+    check("anio", "El año es obligatorio").not().isEmpty(),
+    check("director", "El director es obligatoria").not().isEmpty(),
+    check("duracion", "La duración es obligatoria").not().isEmpty(),
+    validarEx ,
+],crearPelicula)
 
 //ACTUALIZAR UNA PELICULA
-router.put("/movies/:id", actualizarPelicula)
+router.put("/movies/:id",
+[
+    check("titulo", "El título es obligatorio").not().isEmpty(),
+    check("genero", "El género es obligatoria").not().isEmpty(),
+    check("anio", "El año es obligatorio").not().isEmpty(),
+    check("director", "El director es obligatoria").not().isEmpty(),
+    check("duracion", "La duración es obligatoria").not().isEmpty(),
+    validarEx ,
+], actualizarPelicula)
 
 //ELIMINAR UNA PELICULA
 router.delete("/movies/:id", borrarPelicula)

@@ -1,5 +1,5 @@
 const { validarEx } = require('../middleware/vallidation');
-const { check } = required('express-validator')
+const { check } = require('express-validator')
 const router = express.router();
 
 
