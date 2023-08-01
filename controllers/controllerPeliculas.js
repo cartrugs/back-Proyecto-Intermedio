@@ -93,7 +93,7 @@ const crearPelicula = async (req, res) => {
 //ACTUALIZAR PELI//
 const actualizarPelicula = async (req, res) => {
     const id = await req.params.id;
-    const datos = req.body;
+//    const datos = req.body;
 
 
     try {

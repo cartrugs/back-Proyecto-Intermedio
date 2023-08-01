@@ -14,16 +14,16 @@ const port = process.env.PORT
 //CONEXIÓN BBDD
 dbConnect();
 
-// parse application/x-www-form-urlencoded
+//parse application/x-www-form-urlencoded
 app.use(express.urlencoded({ extended: false }))
 
-// parse application/json
+//parse application/json
 app.use(express.json())
 
 //RUTAS
 app.use('/api/v1/',require('./routers/backRoutes'));
 
-//APP A LA ESCUCHA
+//SERVIDOR A LA ESCUCHA
 app.listen(port, ()=>{
     console.log(`Servidor a la escucha del puerto ${port}`)
 
