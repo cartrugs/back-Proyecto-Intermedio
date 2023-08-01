@@ -35,4 +35,29 @@ const buscarPeliculas = async (req, res) => {
 
 }
 
-module.exports = { buscarPeliculas }
+//AÑADIR PELI//
+
+const createPelicula = async (req, res) => {
+    const peli = new Pelicula(req.body)
+
+    try {
+        
+        const peliGuardada = await peli.save()
+        console.log(peliGuardada)
+        return res.status(201).json({
+            ok: true,
+            pelicula: peliGuardada,
+            msg: "añade peli"
+
+        })
+    } catch (error) {
+        console.log(error)
+    }
+
+
+
+
+}
+module.exports = { 
+    buscarPeliculas, 
+    createPelicula }
