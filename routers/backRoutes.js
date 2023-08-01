@@ -1,15 +1,15 @@
 const express = require("express")
-const { buscarPelicula, createPelicula, actualizarPelicula, borrarPelicula} = require("../controllers/controllerPeliculas")
+const {obtenerPelicula, buscarPelicula, crearPelicula, actualizarPelicula, borrarPelicula} = require("../controllers/controllerPeliculas")
 const router = express.Router()
 
 //RECOGER TODAS LAS PELICULAS
-// router.get('/movies', buscarPeliculas)
+router.get('/movies', obtenerPelicula)
 
 //RECOGER UNA PELICULA POR SU NOMBRE
 router.get('/movies/:titulo', buscarPelicula)
 
 //CREAR UNA PELICULA
-router.post("/movies", createPelicula)
+router.post("/movies", crearPelicula)
 
 //ACTUALIZAR UNA PELICULA
 router.put("/movies/:id", actualizarPelicula)
