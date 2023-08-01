@@ -1,6 +1,7 @@
 const { validarEx } = require('../middleware/vallidation');
-const { check } = require('express-validator')
+const { check } = require('express-validator');
 const router = express.router();
+const {createUser,loginUser,renewToken} = require('../controllers/authController')
 
 
 //POST REGISTER
