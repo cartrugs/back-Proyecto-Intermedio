@@ -1,9 +1,12 @@
 const User = require('../models/userMovie');
+const bcrypt = require('bcryptjs')
 
 
 
 //POST CREAR USER
 const createUser = async (req,res) => {
+
+
 
 }
 
@@ -28,5 +31,3 @@ module.exports = {
     loginUser,
     renewToken
 }
-
-
