@@ -66,6 +66,16 @@ const crearPelicula = async (req, res) => {
 
     try {
 
+        const {titulo} = peli
+        const existe = await Pelicula.find({ titulo: titulo });
+        console.log(titulo)
+        if (existe) {
+            return res.status(400).json({
+                ok: false,
+                msg: '¡Esta película ya existe en nuestra base!'
+            });
+        };
+
         const peliGuardada = await peli.save()
         console.log(peliGuardada)
         return res.status(201).json({
