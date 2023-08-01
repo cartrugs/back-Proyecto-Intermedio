@@ -4,6 +4,7 @@ require('dotenv').config();
 
 const { dbConnect } = require('./helpers/connection')
 
+
 //SERVIDOR
 const app = express();
 
@@ -25,4 +26,5 @@ app.use('/api/v1/',require('./routers/backRoutes'));
 //APP A LA ESCUCHA
 app.listen(port, ()=>{
     console.log(`Servidor a la escucha del puerto ${port}`)
+
 });
