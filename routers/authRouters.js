@@ -8,9 +8,10 @@ const router = express.Router();
 //POST REGISTER
 router.post('/register',
     [
-        check('user', 'Email obligatório').isEmail(),
+        check('email', 'Email obligatório').isEmail(),
         check('nombre', 'Nombre obligatório').not().isEmpty(),
         check('password').notEmpty().withMessage('Contraseña obligatòria').isLength({ min: 6 }).withMessage('minimo 6 caracteres').matches(/^(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]+$/).withMessage('La contraseña debe contener pelo menos 1 mayuscula y 1 numero'),
+        check('passConfirm').not().isEmpty(),
         validarEx
     ],
     createUser);
