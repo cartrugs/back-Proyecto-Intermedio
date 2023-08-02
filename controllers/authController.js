@@ -1,12 +1,11 @@
 const User = require('../models/UserMovie');
-const bcrypt = require('bcryptjs')
-
-
+const bcrypt = require('bcryptjs');
+const { generarJWT } = require('../helpers/jwt');
 
 //POST CREAR USER
 const createUser = async (req, res) => {
 
-    const { email, password, passConfirm, nombre, date } = req.body;
+    const { email, password, passConfirm, nombre, role, date } = req.body;
 
     try {
         let user = await User.findOne({ email: email });
@@ -26,7 +25,7 @@ const createUser = async (req, res) => {
             })
         };
 
-        const newUser = { email, nombre, password, date };
+        const newUser = { email, nombre, password, role, date };
         user = new User(newUser)
 
 
@@ -43,60 +42,55 @@ const createUser = async (req, res) => {
         });
 
     } catch (error) {
-        console.log(error)
-
-    }
-
-
-
-}
-
-
+        res.status(500).json({
+            ok: false,
+            msg: 'Consulta con el admin Navarro'
+        });
+    };
+};
 
 //POST LOGIN USER
 const loginUser = async (req, res) => {
     const { email, password } = req.body;
-    console.log(email)
+
     try {
         let user = await User.findOne({ email: email });
-        let passCrypted = await bcrypt.compare(password, user.password)
-        
+
         if (!user) {
             return res.status(400).json({
                 ok: false,
                 msg: 'Ese usuario no existe'
             });
         };
+        let passOk = await bcrypt.compare(password, user.password)
 
-        if (!passCrypted) {
+        if (!passOk) {
             return res.status(400).json({
                 ok: false,
                 msg: 'La contraseña no coincide'
-            })
-
-
+            });
         };
-
-        return res.status(201).json({
+        const token = await generarJWT(user.id, user.nombre);
+        res.status(200).json({
             ok: true,
-            // data: logedUser,
-            msg: "Sesion iniciada"
+            uid: user.id,
+            nombre: user.nombre,
+            email: user.email,
+            token
         });
-
     } catch (error) {
-        console.log(error)
+        res.status(500).json({
+            ok: false,
+            msg: 'Consulta con el admin Navarro'
+        })
 
-    }
-
-}
-
-
+    };
+};
 
 //RENEW
-
 const renewToken = async (req, res) => {
 
-}
+};
 
 
 module.exports = {
