@@ -1,7 +1,8 @@
-const { validarEx } = require('../middleware/vallidation');
+const express = require("express")
 const { check } = require('express-validator');
-const router = express.router();
 const {createUser,loginUser,renewToken} = require('../controllers/authController')
+const { validarEx } = require('../middleware/vallidation');
+const router = express.Router();
 
 
 //POST REGISTER
@@ -27,3 +28,6 @@ router.post('/login',
 
 //RENEW TOKEL
 router.get('/renew', renewToken)
+
+
+module.exports = router
