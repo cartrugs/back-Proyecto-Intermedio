@@ -5,10 +5,10 @@ const router = express.Router()
 const { validarEx } = require('../middleware/vallidation');
 
 //RECOGER TODAS LAS PELICULAS
-router.get('/movies', obtenerPelicula)
+router.get('/', obtenerPelicula)
 
 //RECOGER UNA PELICULA POR SU NOMBRE
-router.get('/movies/:titulo', buscarPelicula)
+router.get('/:titulo', buscarPelicula)
 
 //CREAR UNA PELICULA
 router.post("/", 
