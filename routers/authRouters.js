@@ -18,12 +18,12 @@ router.post('/register',
 
 
 //POST LOGIN
-router.post('/login',
-    [
-        check('user', 'Email obligatório').isEmail(),
-        check('password', 'Password obligatório').not().isEmpty(),
-        validarEx
-    ],
+router.get('/login',
+    // [
+    //     // check('user', 'Email obligatório').isEmail(),
+    //     // check('password', 'Password obligatório').not().isEmpty(),
+    //     validarEx
+    // ],
     loginUser);
 
 

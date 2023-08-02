@@ -67,7 +67,7 @@ const crearPelicula = async (req, res) => {
     try {
 
         const {titulo} = peli
-        const existe = await Pelicula.find({ titulo: titulo });
+        const existe = await Pelicula.findOne({ titulo: titulo });
         console.log(titulo)
         if (existe) {
             return res.status(400).json({
