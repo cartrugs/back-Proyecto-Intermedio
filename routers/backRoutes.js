@@ -2,7 +2,7 @@ const express = require("express")
 const { check } = require('express-validator')
 const {obtenerPelicula, buscarPelicula, crearPelicula, actualizarPelicula, borrarPelicula} = require("../controllers/controllerPeliculas")
 const router = express.Router()
-const { validarEx } = require('../middleware/vallidation');
+const { validarEx } = require('../middleware/validation');
 
 //RECOGER TODAS LAS PELICULAS
 router.get('/', obtenerPelicula)
@@ -34,9 +34,6 @@ router.put("/:id",
 
 //ELIMINAR UNA PELICULA
 router.delete("/:id", borrarPelicula)
-
-
-
 
 
 

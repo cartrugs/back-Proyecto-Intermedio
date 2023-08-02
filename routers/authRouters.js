@@ -1,7 +1,7 @@
 const express = require("express")
 const { check } = require('express-validator');
 const {createUser,loginUser,renewToken} = require('../controllers/authController')
-const { validarEx } = require('../middleware/vallidation');
+const { validarEx } = require('../middleware/validation');
 const router = express.Router();
 
 
@@ -19,11 +19,11 @@ router.post('/register',
 
 //POST LOGIN
 router.get('/login',
-    // [
-    //     // check('user', 'Email obligatório').isEmail(),
-    //     // check('password', 'Password obligatório').not().isEmpty(),
-    //     validarEx
-    // ],
+    [
+        check('email', 'Email obligatório').isEmail(),
+        check('password', 'Password obligatório').not().isEmpty(),
+        validarEx
+    ],
     loginUser);
 
 

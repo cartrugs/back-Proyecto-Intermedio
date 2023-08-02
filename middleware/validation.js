@@ -13,9 +13,6 @@ const validarEx = (req,res,next) => {
     next()
 };
 
-
-
-
 module.exports={
     validarEx
     
