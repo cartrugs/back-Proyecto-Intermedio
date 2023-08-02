@@ -11,7 +11,7 @@ router.get('/movies', obtenerPelicula)
 router.get('/movies/:titulo', buscarPelicula)
 
 //CREAR UNA PELICULA
-router.post("/movies", 
+router.post("/", 
 [
     check("titulo", "El título es obligatorio").not().isEmpty(),
     check("genero", "El género es obligatoria").not().isEmpty(),
@@ -22,7 +22,7 @@ router.post("/movies",
 ],crearPelicula)
 
 //ACTUALIZAR UNA PELICULA
-router.put("/movies/:id",
+router.put("/:id",
 [
     check("titulo", "El título es obligatorio").not().isEmpty(),
     check("genero", "El género es obligatoria").not().isEmpty(),
@@ -33,7 +33,7 @@ router.put("/movies/:id",
 ], actualizarPelicula)
 
 //ELIMINAR UNA PELICULA
-router.delete("/movies/:id", borrarPelicula)
+router.delete("/:id", borrarPelicula)
 
 
 
