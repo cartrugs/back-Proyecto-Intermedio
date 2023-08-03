@@ -1,6 +1,8 @@
 const express = require ('express');
+const cors = require ('cors');
+const cookieParser = require('cookie-parser');
 const { dbConnect } = require('./helpers/connection');
-const cors = require ('cors')
+
 require('dotenv').config();
 
 
@@ -14,7 +16,10 @@ const port = process.env.PORT
 dbConnect();
 
 //CORS
-app.use(cors())
+app.use(cors());
+
+//COOKIEPARSER
+app.use(cookieParser());
 
 //parse application/x-www-form-urlencoded
 app.use(express.urlencoded({ extended: false }))
