@@ -92,7 +92,7 @@ const logoutUser = async (req, res) => {
 //RENEW
 const renewToken = async (req, res) => {
     const { uid, nombre } = req
-    console.log(uid, nombre)
+   // console.log(uid, nombre)
     const token = await generarJWT(uid, nombre);
 
     res.status(200).json({
