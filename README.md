@@ -18,9 +18,9 @@ API REST con creacion de cuenta de usuario, inicio y cierre de sesion, visionado
 npm i 
 ``` 
 
-## Iniciar proyecto en localhost:(numero de puerto)  
+## Poner en marcha el puerto  
 ```javascript
-npm start 
+npm run dev 
 ``` 
 ## Tutorial: 
 Crea tu propio archivo .env con las siguientes variables de entorno: 
