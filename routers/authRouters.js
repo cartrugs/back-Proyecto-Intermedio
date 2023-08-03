@@ -29,7 +29,7 @@ router.post('/login',
 
 
 //RENEW TOKEL
-router.get('/renew', renewToken, validarJWT)
+router.get('/renew', validarJWT, renewToken)
 
 
 module.exports = router
