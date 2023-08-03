@@ -12,6 +12,9 @@ const port = process.env.PORT
 //CONEXIÓN BBDD
 dbConnect();
 
+//CORS
+app.use(cors())
+
 //parse application/x-www-form-urlencoded
 app.use(express.urlencoded({ extended: false }))
 

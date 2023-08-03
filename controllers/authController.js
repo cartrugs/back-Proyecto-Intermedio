@@ -1,4 +1,4 @@
-const User = require('../models/UserMovie');
+const User = require('../models/userMovie');
 const bcrypt = require('bcryptjs');
 const { generarJWT } = require('../helpers/jwt');
 
@@ -9,7 +9,6 @@ const createUser = async (req, res) => {
 
     try {
         let user = await User.findOne({ email: email });
-        console.log(user);
 
         if (user) {
             return res.status(400).json({
@@ -28,12 +27,10 @@ const createUser = async (req, res) => {
         const newUser = { email, nombre, password, role, date };
         user = new User(newUser)
 
-
         const salt = bcrypt.genSaltSync();
         user.password = bcrypt.hashSync(password, salt)
 
         const saveUser = await user.save()
-        console.log(saveUser)
 
         return res.status(201).json({
             ok: true,
@@ -90,7 +87,7 @@ const loginUser = async (req, res) => {
 //RENEW
 const renewToken = async (req, res) => {
     const { uid, nombre } = req
-   // console.log(uid, nombre)
+    console.log(uid, nombre)
     const token = await generarJWT(uid, nombre);
     console.log(token)
     res.status(200).json({
