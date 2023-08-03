@@ -1,9 +1,24 @@
+/**
+ * Método para usar el modelo de la base de datos.
+ * @type {PeliculaModel}
+ */
 const Pelicula = require('../models/PeliculaModels');
+/******************** RECOGER TODAS LAS PELÍCULAS ********************/
 
-//RECOGER TODAS LAS PELIS
+/**
+ * Método de controlador para obtener todas las películas con función asíncrona.
+ * @param {Request} req - Objeto de solicitud que contiene los datos de la solicitud.
+ * @param {Response} res - Objeto de respuesta que se utilizará para enviar una respuesta HTTP.
+ * @returns {Promise<Response>} La respuesta HTTP con la lista de películas en formato JSON.
+ */
 const obtenerPelicula = async (req, res) => {
 
     try {
+        /**
+       * Realizar una consulta a la base de datos utilizando el modelo Pelicula.
+       * El método find() busca todos los documentos en la colección asociada al modelo Pelicula.
+       * Esta consulta devuelve una promesa que se resuelve con una lista de documentos que coinciden con los criterios de búsqueda.
+       */
         const peliculas = await Pelicula.find();
 
         return res.status(200).json({
@@ -11,7 +26,9 @@ const obtenerPelicula = async (req, res) => {
             msg: 'Catálogo de películas',
             data: peliculas,
         });
-
+        /**
+            *Capturar y manejar posibles errores que puedan ocurrir durante la ejecución de la consulta o el renderizado de la vista.
+            */
     } catch (error) {
         console.log(error)
         return res.status(500).json({
@@ -20,12 +37,23 @@ const obtenerPelicula = async (req, res) => {
         });
     };
 };
+/******************** BUSCAR UNA PELÍCULA POR SU NOMBRE ********************/
 
-//BUSCAR UNA PELI POR SU NOMBRE
+/**
+ * Método de controlador para buscarPelicula por su nombre con función asíncrona.
+ * @param {Request} req - Objeto de solicitud que contiene los datos de la solicitud.
+ * @param {Response} res - Objeto de respuesta que se utilizará para enviar una respuesta HTTP.
+ * @returns {Promise<Response>} La respuesta HTTP con los datos de la película encontrada en formato JSON.
+ */
 const buscarPelicula = async (req, res) => {
     const titulo = await req.params.titulo;
 
     try {
+        /**
+       * Realizar una consulta a la base de datos utilizando el modelo Pelicula y el método findOne.
+       * El método findOne() busca en todos los documentos en la colección asociada al modelo Pelicula.
+       * Esta consulta devuelve una promesa que se resuelve con una lista de documentos que coinciden con los criterios de búsqueda.
+       */
         const existe = await Pelicula.findOne({ titulo: titulo });
 
         if (existe) {
@@ -41,6 +69,9 @@ const buscarPelicula = async (req, res) => {
                 msg: "No se encuentran películas con ese título"
             });
         };
+        /**
+     *Capturar y manejar posibles errores que puedan ocurrir durante la ejecución de la consulta o el renderizado de la vista.
+     */
     } catch (error) {
         console.log(error);
         return res.status(500).json({
@@ -49,12 +80,24 @@ const buscarPelicula = async (req, res) => {
         });
     };
 };
+/******************** AÑADIR PELÍCULA ********************/
 
-//AÑADIR PELI//
+/**
+ * Método de controlador para crear una nueva película en la base de datos con función asíncrona.
+ * @param {Request} req - Objeto de solicitud que contiene los datos de la solicitud, incluyendo los datos de la nueva película en el cuerpo de la solicitud.
+ * @param {Response} res - Objeto de respuesta que se utilizará para enviar una respuesta HTTP.
+ * @returns {Promise<Response>} La respuesta HTTP con los datos de la película creada en formato JSON.
+ */
 const crearPelicula = async (req, res) => {
     const peli = new Pelicula(req.body);
 
     try {
+        /**
+        * Realizar una consulta a la base de datos utilizando el modelo Pelicula y el método find.
+        * El método find() busca en todos los documentos en la colección asociada al modelo Pelicula.
+        * @param {string} titulo - El título de la película en la base de datos.
+        * @returns {Promise<Array>} Una promesa que se resuelve con un array de peliculas que coinciden con el título.
+        */
         const { titulo } = peli;
         const existe = await Pelicula.findOne({ titulo: titulo });
 
@@ -70,8 +113,10 @@ const crearPelicula = async (req, res) => {
             ok: true,
             pelicula: peliGuardada,
             msg: "Película añadida"
-
         });
+        /**
+            *Capturar y manejar posibles errores que puedan ocurrir durante la ejecución de la consulta o el renderizado de la vista.
+            */
     } catch (error) {
         console.log(error);
         return res.status(500).json({
@@ -80,12 +125,26 @@ const crearPelicula = async (req, res) => {
         });
     };
 };
+/******************** ACTUALIZAR PELÍCULA ********************/
 
-//ACTUALIZAR PELI//
+/**
+ * Método de controlador para actualizar una película existente en la base de datos con función asíncrona.
+ * @param {Request} req - Objeto de solicitud que contiene los datos de la solicitud, incluyendo el ID de la película a actualizar en los parámetros y los nuevos datos de la película en el cuerpo de la solicitud.
+ * @param {Response} res - Objeto de respuesta que se utilizará para enviar una respuesta HTTP.
+ * @returns {Promise<Response>} La respuesta HTTP con los datos de la película actualizada en formato JSON.
+ */
 const actualizarPelicula = async (req, res) => {
     const id = await req.params.id;
 
     try {
+        /**
+         * Realizar una consulta a la base de datos utilizando el modelo Pelicula y el método findByIdAndUpdate.
+         * El método findByIdAndUpdate() busca en todos los documentos en la colección asociada al modelo Pelicula.
+         * @param {string} id - El (_id) de la película que se va a modificar.
+         * @param {Object} body - Los datos que se actualizarán en la película.
+         * @param {Object} options - Opciones adicionales para la actualización. En este caso, se utiliza { new: true } para devolver la película modificada en vez de la original.
+         * @returns {Promise<Document|null>} Una promesa que se resuelve con el documento de una película modificada o null si no existe.
+         */
         const existe = await Pelicula.findOne({ _id: id });
         const peliModificada = await Pelicula.findByIdAndUpdate(req.params.id, req.body, { new: true });
 
@@ -100,7 +159,9 @@ const actualizarPelicula = async (req, res) => {
             ok: false,
             msg: "No hay películas con ese título"
         });
-
+        /**
+             *Capturar y manejar posibles errores que puedan ocurrir durante la ejecución de la consulta o el renderizado de la vista.
+             */
     } catch (error) {
         console.log(error);
         return res.status(500).json({
@@ -109,12 +170,23 @@ const actualizarPelicula = async (req, res) => {
         });
     };
 };
-
-//BORRAR PELI//
+/******************** BORRAR PELÍCULA ********************/
+/**
+* Método de controlador para eliminar una película de la base de datos con función asíncrona.
+* @param {Request} req - Objeto de solicitud que contiene los datos de la solicitud, incluyendo el ID de la película a eliminar en los parámetros.
+* @param {Response} res - Objeto de respuesta que se utilizará para enviar una respuesta HTTP.
+* @returns {Promise<Response>} La respuesta HTTP con un mensaje indicando que la película ha sido eliminada.
+*/
 const borrarPelicula = async (req, res) => {
     const id = await req.params.id;
 
     try {
+        /**
+        * Realizar una consulta a la base de datos utilizando el modelo Pelicula y el método findByIdAndDelete.
+        * @method findByIdAndDelete
+        * @param {string} id - El (_id) de la película que se desea elimnar.
+        * @returns {Promise<Document|null>} Una promesa que se resuelve con el documento de una película eliminada o null si no existe.
+        */
         const existe = await Pelicula.findByIdAndDelete(id);
 
         if (existe) {
@@ -128,6 +200,9 @@ const borrarPelicula = async (req, res) => {
                 msg: "No hay películas con ese título"
             });
         };
+        /**
+     *Capturar y manejar posibles errores que puedan ocurrir durante la ejecución de la consulta o el renderizado de la vista.
+     */
     } catch (error) {
         console.log(error);
         return res.status(500).json({
@@ -136,7 +211,9 @@ const borrarPelicula = async (req, res) => {
         });
     };
 };
-
+/**
+ * Exportación de funciones
+ */
 module.exports = {
     obtenerPelicula,
     buscarPelicula,
