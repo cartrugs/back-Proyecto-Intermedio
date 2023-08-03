@@ -22,7 +22,7 @@ const userSchema = new Schema({
         type: Date,
         default: Date.now
     },
-    //logged: Boolean
+    
 });
 
 module.exports = model('User', userSchema)

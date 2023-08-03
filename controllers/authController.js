@@ -28,9 +28,9 @@ const createUser = async (req, res) => {
         user = new User(newUser)
 
         const salt = bcrypt.genSaltSync();
-        user.password = bcrypt.hashSync(password, salt)
+        user.password = bcrypt.hashSync(password, salt);
 
-        const saveUser = await user.save()
+        const saveUser = await user.save();
 
         return res.status(201).json({
             ok: true,
@@ -79,20 +79,14 @@ const loginUser = async (req, res) => {
         res.status(500).json({
             ok: false,
             msg: 'Consulta con el admin Navarro'
-        })
-
+        });
     };
-};
-
-//POST LOGOUT USER
-const logoutUser = async (req, res) => {
-
 };
 
 //RENEW
 const renewToken = async (req, res) => {
     const { uid, nombre } = req
-   // console.log(uid, nombre)
+   
     const token = await generarJWT(uid, nombre);
 
     res.status(200).json({
@@ -104,7 +98,6 @@ const renewToken = async (req, res) => {
         }, token
     });
 };
-
 
 module.exports = {
     createUser,
