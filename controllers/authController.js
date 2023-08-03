@@ -1,5 +1,6 @@
 const User = require('../models/userMovie');
 const bcrypt = require('bcryptjs');
+const cookieParser = require('cookie-parser')
 const { generarJWT } = require('../helpers/jwt');
 
 //POST CREAR USER
@@ -68,6 +69,9 @@ const loginUser = async (req, res) => {
             });
         };
         const token = await generarJWT(user.id, user.nombre);
+        // res.cookie('miToken', token, {
+        //     maxAge: 1800000
+        // });
         res.status(200).json({
             ok: true,
             uid: user.id,
@@ -86,7 +90,7 @@ const loginUser = async (req, res) => {
 //RENEW
 const renewToken = async (req, res) => {
     const { uid, nombre } = req
-   
+
     const token = await generarJWT(uid, nombre);
 
     res.status(200).json({
